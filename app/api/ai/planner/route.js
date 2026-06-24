@@ -2,9 +2,10 @@ export async function POST(req) {
   try {
     const { text } = await req.json();
 
+    console.log("API Key Exists:", !!process.env.GEMINI_API_KEY);
+
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=" +
-        process.env.GEMINI_API_KEY,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -40,18 +41,32 @@ ${text}
 
     const data = await response.json();
 
-    console.log("Planner Gemini:", data);
+    console.log("Gemini Status:", response.status);
+    console.log("Planner Gemini Response:", JSON.stringify(data));
 
-    let plan = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!plan) {
-      plan = "AI could not generate schedule.";
+    if (!response.ok) {
+      return Response.json(
+        {
+          error: data,
+        },
+        { status: response.status }
+      );
     }
+
+    const plan =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "AI could not generate schedule.";
 
     return Response.json({ result: plan });
 
   } catch (error) {
-    console.error("Planner API error:", error);
-    return Response.json({ result: "Planner failed" });
+    console.error("Planner API Error:", error);
+
+    return Response.json(
+      {
+        error: error.message,
+      },
+      { status: 500 }
+    );
   }
 }
