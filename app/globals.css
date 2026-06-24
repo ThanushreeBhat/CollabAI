@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans), var(--font-sans);
+  --font-mono: var(--font-geist-mono), var(--font-mono);
+}
+
+body {
+  background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 50%, #e0f2fe 100%);
+  background-attachment: fixed;
+  color: #0f172a;
+  min-height: 100vh;
+}
+
+/* Premium Light Blue Glassmorphism styling */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(186, 230, 253, 0.4); /* sky-200 with opacity */
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(14, 165, 233, 0.15); /* sky-500 with opacity */
+  box-shadow: 0 4px 20px -2px rgba(186, 230, 253, 0.3), 0 2px 8px -1px rgba(186, 230, 253, 0.2);
+}
+
+.glass-card:hover {
+  border-color: rgba(14, 165, 233, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(186, 230, 253, 0.4), 0 4px 12px -2px rgba(186, 230, 253, 0.3);
+}
+
+/* Glowing text and interactive transitions */
+.text-gradient-sky {
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}
+
